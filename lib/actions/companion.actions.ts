@@ -1,7 +1,7 @@
 "use server"
 
 import { auth } from "@clerk/nextjs/server"
-import { createSupabaseClient } from "../supabase"
+import { createSupabaseClient, createPublicSupabaseClient } from "../supabase"
 
 // This function is a mutation so we need to check the user here
 export const createCompanion = async (formData: CreateCompanion) => {
@@ -40,7 +40,7 @@ export const bookmarkCompanion = async (companionId: string, bookmarked: boolean
 
 //This function is an action so we do not need to check the user here
 export const getAllCompanions = async ({limit = 10, page = 1, subject, topic} : GetAllCompanions) => {
-    const supabase = createSupabaseClient()
+    const supabase = createPublicSupabaseClient()
 
     let query = supabase.from("companions").select()
 
@@ -67,7 +67,7 @@ export const getAllCompanions = async ({limit = 10, page = 1, subject, topic} : 
 }
 
 export const getCompanion = async (id: string) => {
-    const supabase = createSupabaseClient()
+    const supabase = createPublicSupabaseClient()
     const { data, error } = await supabase
         .from("companions")
         .select()
@@ -97,7 +97,7 @@ export const addToSessionHistory = async (companionId: string) => {
 }
 
 export const getRecentSessions = async (limit = 10) => {
-    const supabase = createSupabaseClient()
+    const supabase = createPublicSupabaseClient()
 
     const {data, error} = await supabase
     .from("session_history")
