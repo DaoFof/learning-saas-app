@@ -10,7 +10,7 @@ const Page = async () => {
 
   const companions = await getAllCompanions({limit: 3, page: 1});  
   const recentSessionsCompanions = await getRecentSessions(10)
-  console.log('recentSessionsCompanions', recentSessionsCompanions);
+
   return (
     <main>
       <h1 className='text-2xl'>Popular Companions</h1>

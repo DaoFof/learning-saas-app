@@ -20,6 +20,24 @@ export const createCompanion = async (formData: CreateCompanion) => {
     return data[0]
 }
 
+export const bookmarkCompanion = async (companionId: string, bookmarked: boolean) => {
+    const { userId } = await auth()
+    const supabase = createSupabaseClient()
+
+    const { data, error } = await supabase.from("companions")
+    .update({ bookmarked })
+    .eq("id", companionId)
+    .eq("author", userId)
+
+    if(error) {
+        console.error(error)
+        return false
+    }
+
+    return true
+}
+
+
 //This function is an action so we do not need to check the user here
 export const getAllCompanions = async ({limit = 10, page = 1, subject, topic} : GetAllCompanions) => {
     const supabase = createSupabaseClient()
