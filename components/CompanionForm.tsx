@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select"
 import { subjects } from "@/constants"
 import { Textarea } from "./ui/textarea"
-import { createCompanion } from "@/lib/actions/companion.actions"
+import { createCompanion, newCompanionPermissions } from "@/lib/actions/companion.actions"
 import { redirect } from "next/navigation"
 
 const formSchema = z.object({
@@ -50,6 +50,14 @@ const CompanionForm = () => {
     })
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
+
+        //check if user has reached companion limit before creating
+
+        const hasReachedLimit = await newCompanionPermissions()
+        if(!hasReachedLimit) {
+            redirect('/subscription')
+        }
+        
         const companion = await createCompanion(values)
 
         if(companion) {
