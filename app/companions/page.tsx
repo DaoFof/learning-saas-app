@@ -21,7 +21,7 @@ const CompanionsLibrary = async ({ searchParams } : SearchParams) => {
                     <SubjectFilter />
                 </div>
             </section>
-            <section className="companion-grid flex justify-between gap-6 mt-6">
+            <section className="companion-grid flex justify-between gap-6 mt-6 max-sm:flex-col">
                 {companions.map((companion) => (
                     <CompanionCard 
                         key={companion.id}
