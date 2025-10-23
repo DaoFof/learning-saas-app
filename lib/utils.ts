@@ -10,7 +10,7 @@ export const getSubjectColor = (subject: string) => {
   return subjectsColors[subject as keyof typeof subjectsColors];
 };
 
-export const configureAssistant = (voice: string, style: string) => {
+export const configureAssistant = (voice: string, style: string, language: string) => {
   const voiceId =
     voices[voice as keyof typeof voices][
       style as keyof (typeof voices)[keyof typeof voices]
@@ -23,7 +23,7 @@ export const configureAssistant = (voice: string, style: string) => {
     transcriber: {
       provider: "deepgram",
       model: "nova-3",
-      language: "en",
+      language: {language},
     },
     voice: {
       provider: "11labs",
