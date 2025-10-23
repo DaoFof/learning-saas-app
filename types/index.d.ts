@@ -33,7 +33,6 @@ interface CreateCompanion {
   voice: string;
   style: string;
   duration: number;
-  language: string;
 }
 
 interface GetAllCompanions {
@@ -81,5 +80,4 @@ interface CompanionComponentProps {
   userImage: string;
   voice: string;
   style: string;
-  language: string;
 }
