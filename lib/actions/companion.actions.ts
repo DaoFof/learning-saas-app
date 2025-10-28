@@ -107,7 +107,14 @@ export const getRecentSessions = async (limit = 10) => {
 
     if(error) throw new Error(error.message)
     
-    return data.map(({companions}) => companions)
+    const companions = data.map(({companions}) => companions).filter(Boolean)
+    
+    // Remove duplicates by keeping only the first occurrence of each companion
+    const uniqueCompanions = companions.filter((companion: any, index: number, array: any[]) => 
+        index === array.findIndex((c: any) => c.id === companion.id)
+    )
+    
+    return uniqueCompanions
 }
 
 export const getUserSessions = async (userId : string, limit = 10) => {
